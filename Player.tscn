@@ -1,0 +1,196 @@
+[gd_scene load_steps=36 format=2]
+
+[ext_resource path="res://assets/img/Characters Red- Balloon Fighters.png" type="Texture" id=1]
+[ext_resource path="res://Player.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=33]
+extents = Vector2( 26.5, 37.75 )
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 3, 170, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 27, 170, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 51, 170, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 3, 35, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 27, 35, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 51, 35, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 1 )
+region = Rect2( 75, 35, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 1 )
+region = Rect2( 99, 35, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 1 )
+region = Rect2( 3, 8, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 1 )
+region = Rect2( 27, 8, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 1 )
+region = Rect2( 51, 8, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 1 )
+region = Rect2( 75, 8, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 1 )
+region = Rect2( 99, 8, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 1 )
+region = Rect2( 3, 143, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 1 )
+region = Rect2( 27, 143, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 1 )
+region = Rect2( 51, 143, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 1 )
+region = Rect2( 3, 116, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 1 )
+region = Rect2( 27, 116, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 1 )
+region = Rect2( 51, 116, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 1 )
+region = Rect2( 75, 116, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 1 )
+region = Rect2( 99, 116, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 1 )
+region = Rect2( 3, 89, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 1 )
+region = Rect2( 27, 89, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 1 )
+region = Rect2( 51, 89, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 1 )
+region = Rect2( 75, 89, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 1 )
+region = Rect2( 99, 89, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 1 )
+region = Rect2( 3, 62, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 1 )
+region = Rect2( 27, 62, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 1 )
+region = Rect2( 51, 62, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 1 )
+region = Rect2( 75, 62, 24, 27 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 1 )
+region = Rect2( 99, 62, 24, 27 )
+
+[sub_resource type="SpriteFrames" id=32]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ],
+"loop": true,
+"name": "Falling",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "Fly-1b",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
+"loop": true,
+"name": "Fly-2b",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
+"loop": true,
+"name": "Idle-1b",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
+"loop": true,
+"name": "Idle-2b",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 20 ) ],
+"loop": true,
+"name": "Popped-air",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 21 ) ],
+"loop": true,
+"name": "Popped-idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ) ],
+"loop": true,
+"name": "Run-1b",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ) ],
+"loop": true,
+"name": "Run-2b",
+"speed": 5.0
+} ]
+
+[node name="KinematicBody2D" type="KinematicBody2D"]
+position = Vector2( 8, 0 )
+motion/sync_to_physics = true
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 5.5, -9.75 )
+shape = SubResource( 33 )
+
+[node name="Animations" type="AnimatedSprite" parent="."]
+position = Vector2( 8.00003, -7.50003 )
+scale = Vector2( 3.5121, 3.3726 )
+frames = SubResource( 32 )
+animation = "Run-2b"
+frame = 2
+speed_scale = 3.0
