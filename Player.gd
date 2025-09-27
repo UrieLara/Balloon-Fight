@@ -7,7 +7,7 @@ const FLY_IMPULSE = -200
 const FRICTION = 0.05
 var balloons = 2
 
-enum player {idle, moving, flying}
+enum player {idle, moving}
 enum states {idle, left, right, fly}
 
 var actual_player_state = player.idle
@@ -59,20 +59,8 @@ func set_player_state():
 				states.right:
 					move(1, true)
 				states.idle:
-					actual_player_state = player.idle
-			
-		player.flying:
-			match event_k:
-				states.fly:
-					fly()
-				states.left:
-					move(-1, false)
-				states.right:
-					move(1, true)
-				states.idle:
-					actual_player_state = player.idle
+						actual_player_state = player.idle
 
-		
 
 func move (direction, flip):
 	vec_velocity.x = lerp(vec_velocity.x, direction*200, 0.15)
@@ -83,7 +71,7 @@ func move (direction, flip):
 	
 func fly ():
 	vec_velocity.y = FLY_IMPULSE
-	actual_player_state = player.flying
+	actual_player_state = player.moving
 	
 	
 func stand():
@@ -107,14 +95,13 @@ func play_animations():
 		player.moving:
 			if is_on_floor():
 				if balloons == 2:
-					$Animations.play("Run-2b")	
+					$Animations.play("Run-2b")						
 				elif balloons == 1: 
-					$Animations.play("Run-1b")
-					
-		player.flying: 
-			if balloons == 2:
-				$Animations.play("Fly-2b")	
-			elif balloons == 1:
-				$Animations.play("Fly-1b")	
+					$Animations.play("Run-1b")	
+			else:
+				if balloons == 2:
+					$Animations.play("Fly-2b")	
+				elif balloons == 1:
+					$Animations.play("Fly-1b")	
 				
 	
