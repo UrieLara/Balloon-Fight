@@ -157,6 +157,16 @@ animations = [ {
 "name": "Idle-2b",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 4 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "Idle-sky-1b",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 9 ), SubResource( 12 ), SubResource( 13 ) ],
+"loop": true,
+"name": "Idle-sky-2b",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 20 ) ],
 "loop": true,
 "name": "Popped-air",
@@ -191,6 +201,5 @@ shape = SubResource( 33 )
 position = Vector2( 8.00003, -7.50003 )
 scale = Vector2( 3.5121, 3.3726 )
 frames = SubResource( 32 )
-animation = "Run-2b"
-frame = 2
+animation = "Idle-sky-1b"
 speed_scale = 3.0

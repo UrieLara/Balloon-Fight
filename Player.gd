@@ -49,6 +49,7 @@ func set_player_state():
 					move(1, true)
 				states.idle:
 					stand()
+
 		player.moving:
 			match event_k:
 				states.fly:
@@ -91,10 +92,17 @@ func stand():
 func play_animations():
 	match actual_player_state:
 		player.idle: 
-			if balloons == 2:
-				$Animations.play("Idle-2b")	
-			elif balloons == 1:
-				$Animations.play("Idle-1b")
+			if is_on_floor():
+				if balloons == 2:
+					$Animations.play("Idle-2b")	
+				elif balloons == 1:
+					$Animations.play("Idle-1b")
+			
+			if vec_velocity.y > 0:
+				if balloons == 2:
+					$Animations.play("Idle-sky-2b")	
+				elif balloons == 1:
+					$Animations.play("Idle-sky-1b")
 		
 		player.moving:
 			if is_on_floor():
@@ -108,4 +116,5 @@ func play_animations():
 				$Animations.play("Fly-2b")	
 			elif balloons == 1:
 				$Animations.play("Fly-1b")	
+				
 	
