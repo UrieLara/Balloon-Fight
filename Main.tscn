@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/img/fondo-ds.png" type="Texture" id=1]
 [ext_resource path="res://assets/img/terrain_edit.png" type="Texture" id=2]
@@ -129,6 +129,9 @@ points = PoolVector2Array( 32, 18, 0, 18, 0, 0, 32, 0 )
 } ]
 4/z_index = 0
 
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 138.5, 5.5 )
+
 [node name="Node2D" type="Node2D"]
 
 [node name="background" type="TileMap" parent="."]
@@ -148,6 +151,13 @@ collision_mask = 2
 format = 1
 tile_data = PoolIntArray( 327721, 536870915, 0, 2490389, 536870912, 0, 2490397, 536870912, 0, 2490405, 536870912, 0, 4063232, 4, 0, 4063280, 536870916, 0, 4456463, 536870913, 0, 4456471, 1, 0, 4456478, 536870913, 0, 4456483, 536870913, 0, 4456489, 1, 0 )
 
-[node name="KinematicBody2D" parent="." instance=ExtResource( 3 )]
-position = Vector2( 77, 476 )
+[node name="Ceiling" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ceiling"]
+position = Vector2( 512, -14 )
+scale = Vector2( 4, 4 )
+shape = SubResource( 6 )
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+position = Vector2( 77, 472 )
 motion/sync_to_physics = false
