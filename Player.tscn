@@ -166,7 +166,7 @@ animations = [ {
 "speed": 5.0
 }, {
 "frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
-"loop": true,
+"loop": false,
 "name": "Fly-2b",
 "speed": 5.0
 }, {

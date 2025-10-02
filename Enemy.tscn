@@ -129,3 +129,5 @@ scale = Vector2( 4.8125, 4.97619 )
 frames = SubResource( 1 )
 animation = "Parachute-pink"
 playing = true
+
+[connection signal="animation_finished" from="Animations_Enemy" to="." method="_on_Animations_Enemy_animation_finished"]
