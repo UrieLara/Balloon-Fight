@@ -13,16 +13,16 @@ const SIZE_PLAYER_X = 24
 var balloons = 2
 
 enum player {idle, moving, flying}
-enum states {idle, left, right, fly}
+enum state_player {idle, moving, flying}
 
-var actual_player_state = player.idle
-var flying_animation = false
 
 func _physics_process(delta):
 	move_player()
 	teletransport()
+	state()
 	vec_velocity.y += GRAVITY * delta
-	vec_velocity = move_and_slide(vec_velocity, Vector2.UP)
+	print("x:"+str(vec_velocity.x))
+	move_and_slide(vec_velocity, Vector2.UP)
 	
 	if is_on_floor():
 		vec_velocity.y = 0
@@ -66,14 +66,17 @@ func move_player():
 			
 		states.idle:
 			match actual_player_state:
-				player.idle:
 					stop()
 				
 				player.moving:
 					actual_player_state = player.idle
+				state_player.moving:
+					actual_player_state = state_player.idle
 					
 				player.flying:
 					actual_player_state = player.idle
+				state_player.flying:
+					actual_player_state = state_player.idle
 	play_animation(actual_player_state)
 									
 
@@ -82,11 +85,10 @@ func move (direction, flip):
 	vec_velocity.x = lerp(vec_velocity.x, direction*200, 0.15)
 	animation_player.flip_h = flip	
 	actual_player_state = player.moving
+	actual_player_state = state_player.moving
 	
 func fly ():
 	vec_velocity.y = FLY_IMPULSE
-	actual_player_state = player.flying
-	#flying_animation = true
 	
 func stop():
 	vec_velocity.x = lerp(vec_velocity.x, 0, FRICTION)
@@ -97,6 +99,7 @@ func play_animation(state):
 
 	match state:
 		player.idle:
+		state_player.idle:
 			if is_on_floor():
 				if abs(vec_velocity.x) > 5:
 					animation_player.play("Brake" + bal_sufix)
@@ -104,12 +107,14 @@ func play_animation(state):
 					animation_player.play("Idle" + bal_sufix)
 					
 		player.moving:
+		state_player.moving:
 			if is_on_floor():
 				animation_player.play("Run" + bal_sufix)
 #			elif vec_velocity.y > 0:
 				#animation_player.play("Idle-sky" + bal_sufix)
 				
 		player.flying:
+		state_player.flying:
 				animation_player.play("Fly" + bal_sufix)
 				
 
