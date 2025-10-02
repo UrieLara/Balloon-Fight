@@ -73,8 +73,6 @@ func move_player():
 				state_player.moving:
 					actual_player_state = state_player.idle
 					
-				player.flying:
-					actual_player_state = player.idle
 				state_player.flying:
 					actual_player_state = state_player.idle
 	play_animation(actual_player_state)
@@ -89,6 +87,7 @@ func move (direction, flip):
 	
 func fly ():
 	vec_velocity.y = FLY_IMPULSE
+	actual_player_state = state_player.flying
 	
 func stop():
 	vec_velocity.x = lerp(vec_velocity.x, 0, FRICTION)
