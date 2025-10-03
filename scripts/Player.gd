@@ -72,14 +72,14 @@ func play_animation(state):
 					animations.play("Brake" + bal_sufix)
 				elif abs(vec_velocity.x) <= 5:
 					animations.play("Idle" + bal_sufix)
-#			elif vec_velocity.y > 0:
-#				animation_player.play("Idle-sky" + bal_sufix)
+			elif vec_velocity.y > 0:
+				animations.play("Idle-sky" + bal_sufix)
 
 		player.moving:
 			if is_on_floor():
 				animations.play("Run" + bal_sufix)
-#			elif vec_velocity.y > 0:
-#				animation_player.play("Idle-sky" + bal_sufix)
+			elif vec_velocity.y > 0:
+				animations.play("Idle-sky" + bal_sufix)
 
 		
 			
