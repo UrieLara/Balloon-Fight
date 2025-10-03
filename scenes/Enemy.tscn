@@ -1,7 +1,7 @@
 [gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://assets/img/Enemies - birds.png" type="Texture" id=1]
-[ext_resource path="res://Enemy.gd" type="Script" id=2]
+[ext_resource path="res://scripts/Enemy.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=22]
 extents = Vector2( 39.5, 34 )
@@ -123,11 +123,16 @@ shape = SubResource( 22 )
 position = Vector2( 3.5, -42.0357 )
 shape = SubResource( 23 )
 
-[node name="Animations_Enemy" type="AnimatedSprite" parent="."]
+[node name="Animations" type="AnimatedSprite" parent="."]
 position = Vector2( 4.5, -6.28572 )
 scale = Vector2( 4.8125, 4.97619 )
 frames = SubResource( 1 )
 animation = "Parachute-pink"
 playing = true
 
-[connection signal="animation_finished" from="Animations_Enemy" to="." method="_on_Animations_Enemy_animation_finished"]
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="animation_finished" from="Animations" to="." method="_on_Animations_Enemy_animation_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

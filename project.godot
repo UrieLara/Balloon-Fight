@@ -14,6 +14,10 @@ config/name="AP1_Ballon Fight_Uriel Lara Castro"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Constants="*res://scripts/constants.gd"
+
 [global]
 
 textura=false
