@@ -48,7 +48,7 @@ func move_player():
 	play_animation(actual_player_state)
 
 func move (direction, flip):
-	vec_velocity.x = lerp(vec_velocity.x, direction*200, 0.15)
+	vec_velocity.x = lerp(vec_velocity.x, direction*Constants.MAX_SPEED, Constants.ACCELERATION_FACTOR)
 	animations.flip_h = flip	
 	actual_player_state = player.moving
 	

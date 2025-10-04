@@ -230,3 +230,5 @@ shape = SubResource( 33 )
 [node name="balloon-collision" type="CollisionShape2D" parent="."]
 position = Vector2( 7.5, -28 )
 shape = SubResource( 34 )
+
+[node name="Timer" type="Timer" parent="."]

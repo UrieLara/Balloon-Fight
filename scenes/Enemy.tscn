@@ -127,12 +127,19 @@ shape = SubResource( 23 )
 position = Vector2( 4.5, -6.28572 )
 scale = Vector2( 4.8125, 4.97619 )
 frames = SubResource( 1 )
-animation = "Parachute-pink"
+animation = "Blow-pink"
 playing = true
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 2.0
+[node name="StartFly" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
 autostart = true
 
-[connection signal="animation_finished" from="Animations" to="." method="_on_Animations_Enemy_animation_finished"]
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[node name="TimerX" type="Timer" parent="."]
+
+[node name="TimerY" type="Timer" parent="."]
+wait_time = 0.1
+
+[connection signal="timeout" from="StartFly" to="." method="_on_StartFly_timeout"]
+[connection signal="timeout" from="TimerX" to="." method="_on_TimeX_timeout"]
+[connection signal="timeout" from="TimerY" to="." method="_on_TimerY_timeout"]

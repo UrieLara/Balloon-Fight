@@ -29,7 +29,6 @@
 0/z_index = 0
 
 [sub_resource type="ConvexPolygonShape2D" id=3]
-points = PoolVector2Array( 32, 10, 0, 10, 0, 0, 32, 0 )
 
 [sub_resource type="ConvexPolygonShape2D" id=4]
 points = PoolVector2Array( 60, 20, 0, 20, 2, 2, 58, 2 )
@@ -178,9 +177,7 @@ scale = Vector2( 4, 4 )
 shape = SubResource( 6 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 77, 472 )
 motion/sync_to_physics = false
 
 [node name="Enemy" parent="." instance=ExtResource( 4 )]
-position = Vector2( 426, 280 )
 scale = Vector2( 0.6, 0.6 )
