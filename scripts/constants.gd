@@ -3,11 +3,15 @@ extends Node
 const MAX_WINDOW_X = 1024
 const SIZE_X = 24
 
-const GRAVITY = 980 
+const GRAVITY = 300
 const FLY_IMPULSE = -250
 const FRICTION = 0.1
+const RECOIL_IMPULSE = 600.0 
 
 const MAX_SPEED = 200
 const ACCELERATION_FACTOR = 0.15
+const MAX_FALLING_VELOCITY = 15
 
 const MIN_FLY_ALTITUDE = 300
+
+const MASK_FOREGROUND = 1

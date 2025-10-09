@@ -46,6 +46,15 @@ right={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="environment"
+2d_physics/layer_2="player body"
+2d_physics/layer_3="player balloons"
+2d_physics/layer_4="enemy body"
+2d_physics/layer_5="enemy balloons"
+2d_physics/layer_6="deaths area"
+
 [physics]
 
 common/enable_pause_aware_picking=true
