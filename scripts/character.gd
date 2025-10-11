@@ -1,12 +1,11 @@
-extends RigidBody2D
-onready var feet_area = $foreground
+extends KinematicBody2D
 onready var animations = $Animations
 
 var vector_velocity = Vector2.ZERO
 
 func apply_gravity(delta):
 	vector_velocity.y = Constants.GRAVITY * delta
-	if feet_area.is_colliding():
+	if is_on_floor():
 		vector_velocity.y = 0
 		
 	return vector_velocity.y

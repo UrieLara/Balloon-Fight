@@ -1,19 +1,22 @@
 extends "res://scripts/character.gd"
 
 enum state {blowing, idle, parachute, flying, dead}
-var colisiono
 var balloons = 1
 var x = 0
 var y = 0
 
+var score_amount = 0
 export var propulsion = 1.0
 export var speed = 1.0
 export var min_y = 80
-
-var vec_velocity = Vector2.ZERO 
-var player = null # Referencia al nodo Player
+var hud
 
 var actual_state = state.blowing
+var vec_velocity = Vector2.ZERO 
+
+var player = null # Referencia al nodo Player
+var score = null
+
 
 func _ready():
 	randomize() 
@@ -21,6 +24,10 @@ func _ready():
 	x  = global_position.x
 	y = global_position.y
 	player = get_tree().get_root().find_node("Player", true, false)
+	
+	hud = get_tree().get_root().find_node("HUD", true, false)
+	
+
 	
 	if player:
 		player.connect("player_died", self, "_on_Player_died")
@@ -32,10 +39,8 @@ func _on_Player_died():
 	
 func _physics_process(delta):
 	teletransport()
-	collisions()
 	vec_velocity.y += apply_gravity(delta)
 	vec_velocity = move_and_slide(vec_velocity, Vector2.UP)
-	colisiono = vec_velocity
 	if actual_state == state.parachute:
 		if vec_velocity.y > Constants.MAX_FALLING_VELOCITY:
 			vec_velocity.y = Constants.MAX_FALLING_VELOCITY
@@ -55,7 +60,7 @@ func _on_StartFly_timeout():
 	animations.play("Fly-pink")
 	
 func _on_TimerY_timeout():
-	var prob = 3 #33% probabilidad
+	var prob = 5 #20% probabilidad
 	var flight_impulse = Constants.FLY_IMPULSE * propulsion
 	
 	if global_position.y > Constants.MIN_FLY_ALTITUDE or is_on_floor():
@@ -83,19 +88,22 @@ func _on_TimeX_timeout():
 
 func _on_Hitbox_area_entered(area): #bird-body
 	if actual_state == state.blowing:
+		hud.add_score(750)	
 		die()
 		
 	if area.name == "Death Area":
 		queue_free()
 	
 func _on_Hurtbox_area_entered(area): #balloons or parachute
-	if actual_state == state.parachute:
-		die()
-		
-	if actual_state == state.flying:		
-		open_parachute()
-	
-
+	match actual_state:
+		state.flying:
+			hud.add_score(500)	
+			open_parachute()
+			
+		state.parachute:
+			hud.add_score(1000)
+			die()
+			
 func open_parachute():
 	actual_state = state.parachute
 	animations.play("Parachute-pink")
@@ -104,7 +112,6 @@ func open_parachute():
 	self.set_collision_mask_bit(Constants.MASK_FOREGROUND - 1, false)
 	$Hitbox.set_deferred("disabled", true)
 
-
 func die():
 	actual_state = state.dead
 	$StartFly.stop()
@@ -112,20 +119,14 @@ func die():
 	$TimerY.stop()
 	animations.play("Die")
 	self.set_collision_mask_bit(Constants.MASK_FOREGROUND - 1, false)
-	$Hitbox.set_deferred("disabled", true)
-	
+	$Hitbox.set_deferred("disabled", true)	
+		
 func game_over():
 	global_position = Vector2(x, y)
 	$TimerX.stop()
 	$TimerY.stop()
 	animations.stop()
 	set_physics_process(false)
-
-func collisions():
-	if colisiono:
-		for i in get_slide_count():
-			var colision = get_slide_collision(i)
-			var normal_colision = colision.normal
-			print(normal_colision)
-			if !is_on_floor():
-				vec_velocity = vec_velocity.bounce(normal_colision) * 0.8
+	
+	
+			

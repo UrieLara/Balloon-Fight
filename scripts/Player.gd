@@ -7,6 +7,7 @@ var direction_x = 0
 var x = 0
 var y = 0
 
+var enemies_beaten = []
 enum player {idle, moving, flying}
 enum states {idle, left, right, fly}
 
@@ -97,26 +98,35 @@ func play_animation(state):
 					animations.play("Idle-sky" + bal_sufix)
 
 func _on_playerballoons_area_entered(area):
-	print("entra a area")
-	if !immunity and balloons >= 1:
-		if is_on_floor():
-			animations.play("Popped-idle")
-		else:
-			animations.play("Popped-air")
+	var enemy_node = area.get_parent().name
+	
+	if not enemy_node in enemies_beaten:
+		if !immunity and balloons >= 1:
+			if is_on_floor():
+				animations.play("Popped-idle")
+			else:
+				animations.play("Popped-air")
 
-		balloons -= 1
-		
-		$TimerImmunity.wait_time = 2.0
-		$TimerImmunity.start()
-		
-		
-	if balloons <= 0:
-		die()
+			balloons -= 1
+			
+			$TimerImmunity.wait_time = 2.0
+			$TimerImmunity.start()
+			
+		if balloons <= 0:
+			die()
 
 func _on_Hitbox_area_entered(area):
-	print(area.name)
+	var enemy_node = area.get_parent().name
+	
+	if enemy_node in enemies_beaten:
+		print("esta en la lista:"+str(enemy_node))
+	
 	if area.name == "Death Area":
 		print("inframundo player")
+	else:
+		enemies_beaten.append(enemy_node)
+
+		
 		
 func die():
 	stop()
