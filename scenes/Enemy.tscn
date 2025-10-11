@@ -4,7 +4,7 @@
 [ext_resource path="res://scripts/Enemy.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=22]
-extents = Vector2( 31, 33.2321 )
+extents = Vector2( 23, 33 )
 
 [sub_resource type="RectangleShape2D" id=24]
 extents = Vector2( 33.5, 33.5 )
@@ -120,13 +120,13 @@ animations = [ {
 "speed": 1.0
 } ]
 
-[node name="Enemy" type="KinematicBody2D"]
+[node name="Enemy" type="RigidBody2D"]
 collision_layer = 8
 collision_mask = 3
 script = ExtResource( 2 )
 
 [node name="bird" type="CollisionShape2D" parent="." groups=["collider_bird"]]
-position = Vector2( 5, 20.2321 )
+position = Vector2( 4, 20.2321 )
 shape = SubResource( 22 )
 
 [node name="Hitbox" type="Area2D" parent="."]
@@ -147,7 +147,7 @@ shape = SubResource( 23 )
 
 [node name="Animations" type="AnimatedSprite" parent="."]
 position = Vector2( 5, -8 )
-scale = Vector2( 4.8125, 4.97619 )
+scale = Vector2( 3, 3.102 )
 frames = SubResource( 1 )
 animation = "Fly-pink"
 speed_scale = 2.0

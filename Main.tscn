@@ -186,23 +186,19 @@ shape = SubResource( 6 )
 
 [node name="Player" parent="Character" instance=ExtResource( 3 )]
 position = Vector2( 77, 477 )
-motion/sync_to_physics = false
 
 [node name="Enemy" parent="Character" groups=["Enemies"] instance=ExtResource( 4 )]
 position = Vector2( 393, 285 )
-scale = Vector2( 0.6, 0.6 )
 collision_mask = 11
 
 [node name="Enemy2" parent="Character" groups=["Enemies"] instance=ExtResource( 4 )]
 position = Vector2( 519, 285 )
-scale = Vector2( 0.6, 0.6 )
 propulsion = 0.9
 speed = 1.2
 min_y = 100
 
 [node name="Enemy3" parent="Character" groups=["Enemies"] instance=ExtResource( 4 )]
 position = Vector2( 650, 285 )
-scale = Vector2( 0.6, 0.6 )
 propulsion = 1.1
 speed = 0.5
 min_y = 120
