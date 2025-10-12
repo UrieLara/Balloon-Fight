@@ -16,8 +16,12 @@ enum states {idle, left, right, fly}
 var actual_player_state = player.idle
 var immunity = true
 
-var enemies_beaten = []
+var enemies = []
+var enemies_hit = []
 var can_move = true
+
+func _ready():
+	enemies = get_tree().get_nodes_in_group("Enemies")
 		
 func _physics_process(delta):
 	move_player()
@@ -105,7 +109,7 @@ func play_animation(state):
 func _on_playerballoons_area_entered(area):
 	var enemy_node = area.get_parent().name
 	
-	if not enemy_node in enemies_beaten:
+	if not enemy_node in enemies_hit:
 		if !immunity and balloons >= 1:
 			if is_on_floor():
 				animations.play("Popped-idle")
@@ -115,18 +119,18 @@ func _on_playerballoons_area_entered(area):
 			balloons -= 1
 			sound_exploded.play()
 			
-			$TimerImmunity.wait_time = 1.0
+			$TimerImmunity.wait_time = 2.0
 			$TimerImmunity.start()
 			
-		if balloons <= 0:
+		if balloons == 0 and can_move:
 			die()
 			game_over()
 
 func _on_Hitbox_area_entered(area):
 	var enemy_node = area.get_parent().name
 	
-	if not enemy_node in enemies_beaten:
-		enemies_beaten.append(enemy_node)
+	if not enemy_node in enemies_hit:
+		enemies_hit.append(enemy_node)
 	
 	if actual_player_state!= player.dead:
 		if area.name == "Death Area":
@@ -140,17 +144,23 @@ func die():
 	animations.play("Die")
 	vec_velocity.y = Constants.FLY_IMPULSE
 	game_over()
-	
+
+func on_enemy_defeated(enemy):
+	enemies.erase(enemy)
+	if enemies.empty():
+		get_parent().get_parent().call_deferred("win")
+		stop_interactivity()
+		set_physics_process(false)
+			
 func game_over():
 	emit_signal("player_died")
-	stop()
 	stop_interactivity()
 	stop_sounds()
 	get_parent().get_parent().call_deferred("game_over")
 	
-
 func stop_interactivity():
 	can_move = false
+	animations.stop()
 	self.set_collision_layer(0)
 	self.set_collision_mask(0)
 	$"player-collision".set_deferred("disabled", true)

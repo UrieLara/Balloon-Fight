@@ -123,7 +123,7 @@ func die():
 	stop_timers()
 	stop_interactivity()
 	animations.play("Die")
-	get_parent().get_parent().call_deferred("on_enemy_defeated", self)
+	node_player.call_deferred("on_enemy_defeated", self)
 	play_sound(sound_die)
 
 func game_over():
@@ -146,8 +146,8 @@ func stop_collision():
 	$Hitbox.set_deferred("disabled", true)
 	
 func stop_interactivity():
+	$bird.set_deferred("disabled", true)
 	stop_collision()
-	$".".set_deferred("disabled", true)
 		
 func play_sound(new_sound):
 	if sound_parachute.playing:

@@ -6,13 +6,13 @@
 [ext_resource path="res://assets/sounds/fly_player.mp3" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=33]
-extents = Vector2( 17.5, 28 )
+extents = Vector2( 17.5, 26.5 )
 
 [sub_resource type="RectangleShape2D" id=35]
-extents = Vector2( 17, 18.5 )
+extents = Vector2( 19, 20.5 )
 
 [sub_resource type="RectangleShape2D" id=34]
-extents = Vector2( 24.5, 14.5 )
+extents = Vector2( 28.5, 16 )
 
 [sub_resource type="AtlasTexture" id=25]
 atlas = ExtResource( 1 )
@@ -223,7 +223,7 @@ motion/sync_to_physics = true
 script = ExtResource( 2 )
 
 [node name="player-collision" type="CollisionShape2D" parent="."]
-position = Vector2( 3.5, 5 )
+position = Vector2( 3.5, 5.5 )
 shape = SubResource( 33 )
 
 [node name="Hitbox" type="Area2D" parent="."]
@@ -231,7 +231,7 @@ collision_layer = 2
 collision_mask = 40
 
 [node name="body-shape" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2( 4, 15.5 )
+position = Vector2( 4, 13.5 )
 shape = SubResource( 35 )
 
 [node name="Hurtbox" type="Area2D" parent="."]
@@ -239,7 +239,7 @@ collision_layer = 4
 collision_mask = 8
 
 [node name="balloon-shape" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2( 7.5, -31.5 )
+position = Vector2( 3.5, -33 )
 shape = SubResource( 34 )
 
 [node name="Animations" type="AnimatedSprite" parent="."]

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/score i.png-48385d2c29ab8b5bafea9f0c28cc6a8b.stex"
+path="res://.import/Balloon.png-52455782afed6e46766d46ff1affb20f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/img/score i.png"
-dest_files=[ "res://.import/score i.png-48385d2c29ab8b5bafea9f0c28cc6a8b.stex" ]
+source_file="res://assets/img/Balloon.png"
+dest_files=[ "res://.import/Balloon.png-52455782afed6e46766d46ff1affb20f.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
