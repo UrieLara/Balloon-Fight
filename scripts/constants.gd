@@ -6,7 +6,6 @@ const SIZE_X = 24
 const GRAVITY = 300
 const FLY_IMPULSE = -250
 const FRICTION = 0.1
-const RECOIL_IMPULSE = 600.0 
 
 const MAX_SPEED = 200
 const ACCELERATION_FACTOR = 0.15

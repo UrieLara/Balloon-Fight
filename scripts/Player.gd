@@ -27,9 +27,10 @@ func _physics_process(delta):
 	move_player()
 	teletransport()
 	vec_velocity.y += apply_gravity(delta)	
-	
+			
 	if actual_player_state == player.dead:
 			vec_velocity.x = 0
+	
 	vec_velocity = move_and_slide(vec_velocity, Vector2.UP) 
 	
 func event_key():
@@ -73,7 +74,6 @@ func move (direction, flip):
 	actual_player_state = player.moving
 	
 	vec_velocity.x = lerp(vec_velocity.x, direction_x*Constants.MAX_SPEED, Constants.ACCELERATION_FACTOR)
-	#vec_velocity.x = direction_x*Constants.MAX_SPEED
 	
 func fly ():
 	vec_velocity.y = Constants.FLY_IMPULSE
