@@ -1,6 +1,9 @@
 extends "res://scripts/character.gd"
 signal player_died
 
+onready var sound_exploded = $Sounds/exploded
+onready var sound_fly = $Sounds/fly
+
 var balloons = 2
 var vec_velocity = Vector2.ZERO
 var direction_x = 0
@@ -15,7 +18,7 @@ var actual_player_state = player.idle
 var immunity = true
 
 var enemies_beaten = []
-var var_game_over = false
+var can_move = true
 		
 func _physics_process(delta):
 	move_player()
@@ -40,7 +43,7 @@ func event_key():
 	
 func move_player():
 	var event_k 
-	if !var_game_over:
+	if can_move:
 		event_k = event_key()
 
 	match event_k:
@@ -71,6 +74,7 @@ func move (direction, flip):
 func fly ():
 	vec_velocity.y = Constants.FLY_IMPULSE
 	actual_player_state = player.flying
+	sound_fly.play()
 	
 func stop():
 	vec_velocity.x = lerp(vec_velocity.x, 0, Constants.FRICTION)
@@ -109,9 +113,9 @@ func _on_playerballoons_area_entered(area):
 				animations.play("Popped-air")
 
 			balloons -= 1
-			$Music/exploded.play()
+			sound_exploded.play()
 			
-			$TimerImmunity.wait_time = 2.0
+			$TimerImmunity.wait_time = 1.0
 			$TimerImmunity.start()
 			
 		if balloons <= 0:
@@ -137,7 +141,7 @@ func die():
 	
 func game_over():
 	stop()
-	var_game_over = true
+	can_move = false
 	self.set_collision_mask_bit(Constants.MASK_FOREGROUND, false)
 	$"player-collision".set_deferred("disabled", true)
 	$Hitbox.set_deferred("disabled", true)

@@ -11,5 +11,5 @@ dest_files=[ "res://.import/fly_enemy.mp3-2c6c644dda86b1298a65b551920525cb.mp3st
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

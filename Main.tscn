@@ -1,18 +1,18 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://assets/img/fondo-ds.png" type="Texture" id=1]
 [ext_resource path="res://assets/img/terrain_edit.png" type="Texture" id=2]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/Enemy.tscn" type="PackedScene" id=4]
-[ext_resource path="res://HUD.gd" type="Script" id=5]
-[ext_resource path="res://assets/img/score i.png" type="Texture" id=6]
+[ext_resource path="res://scripts/HUD.gd" type="Script" id=5]
 [ext_resource path="res://assets/img/score1000.png" type="Texture" id=7]
 [ext_resource path="res://assets/img/score750.png" type="Texture" id=8]
 [ext_resource path="res://assets/img/score500.png" type="Texture" id=9]
-[ext_resource path="res://Main.gd" type="Script" id=10]
-[ext_resource path="res://assets/sounds/loose.mp3" type="AudioStream" id=11]
-[ext_resource path="res://assets/sounds/win.mp3" type="AudioStream" id=12]
-[ext_resource path="res://assets/music/level.mp3" type="AudioStream" id=13]
+[ext_resource path="res://scripts/Main.gd" type="Script" id=10]
+[ext_resource path="res://assets/music/loose.mp3" type="AudioStream" id=11]
+[ext_resource path="res://assets/music/win.mp3" type="AudioStream" id=12]
+[ext_resource path="res://assets/music/start_level.mp3" type="AudioStream" id=13]
+[ext_resource path="res://assets/sounds/score.mp3" type="AudioStream" id=14]
 
 [sub_resource type="TileSet" id=1]
 0/name = "fondo-ds.png 0"
@@ -163,6 +163,12 @@ extents = Vector2( 138.5, 5.5 )
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 517.75, 24 )
 
+[sub_resource type="DynamicFontData" id=12]
+font_path = "res://assets/fonts/balloon-fight-nes-text.otf"
+
+[sub_resource type="DynamicFont" id=13]
+font_data = SubResource( 12 )
+
 [sub_resource type="DynamicFontData" id=8]
 font_path = "res://assets/fonts/balloon-fight-nes-text.otf"
 
@@ -174,6 +180,12 @@ font_path = "res://assets/fonts/balloon-fight-nes-text.otf"
 
 [sub_resource type="DynamicFont" id=11]
 font_data = SubResource( 10 )
+
+[sub_resource type="DynamicFontData" id=14]
+font_path = "res://assets/fonts/balloon-fight-nes-text.otf"
+
+[sub_resource type="DynamicFont" id=15]
+font_data = SubResource( 14 )
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 10 )
@@ -242,10 +254,20 @@ shape = SubResource( 7 )
 [node name="HUD" type="CanvasLayer" parent="."]
 script = ExtResource( 5 )
 
+[node name="Label I-" type="Label" parent="HUD"]
+margin_left = 39.0
+margin_top = 11.0
+margin_right = 68.0
+margin_bottom = 25.0
+rect_scale = Vector2( 1.5, 1.5 )
+custom_colors/font_color = Color( 0.905882, 0, 0.364706, 1 )
+custom_fonts/font = SubResource( 13 )
+text = "I·"
+
 [node name="ScoreLabel" type="Label" parent="HUD"]
-margin_left = 80.0
+margin_left = 75.0
 margin_top = 3.0
-margin_right = 176.0
+margin_right = 171.0
 margin_bottom = 45.0
 custom_fonts/font = SubResource( 9 )
 text = "123456"
@@ -264,14 +286,9 @@ text = "Game Over"
 align = 1
 valign = 1
 
-[node name="score PlayerI" type="Sprite" parent="HUD"]
-position = Vector2( 61, 24 )
-scale = Vector2( 2.59091, 2.96538 )
-texture = ExtResource( 6 )
-
 [node name="score500" type="Sprite" parent="HUD"]
 visible = false
-position = Vector2( 80, -12 )
+position = Vector2( 127, 87 )
 scale = Vector2( 3.75, 4.5 )
 texture = ExtResource( 9 )
 
@@ -287,6 +304,39 @@ position = Vector2( 80, -12 )
 scale = Vector2( 3.25, 6.797 )
 texture = ExtResource( 7 )
 
+[node name="ScoreEnemy" type="Label" parent="HUD"]
+visible = false
+margin_left = 18.0
+margin_top = -54.0
+margin_right = 58.0
+margin_bottom = -40.0
+rect_scale = Vector2( 0.5, 1.25 )
+custom_colors/font_color = Color( 0.803922, 0.160784, 0.0117647, 1 )
+custom_fonts/font = SubResource( 15 )
+text = "500"
+
+[node name="ScoreEnemy2" type="Label" parent="HUD"]
+visible = false
+margin_left = 18.0
+margin_top = -54.0
+margin_right = 58.0
+margin_bottom = -40.0
+rect_scale = Vector2( 0.5, 1.25 )
+custom_colors/font_color = Color( 0.803922, 0.160784, 0.0117647, 1 )
+custom_fonts/font = SubResource( 15 )
+text = "500"
+
+[node name="ScoreEnemy3" type="Label" parent="HUD"]
+visible = false
+margin_left = 18.0
+margin_top = -54.0
+margin_right = 58.0
+margin_bottom = -40.0
+rect_scale = Vector2( 0.5, 1.25 )
+custom_colors/font_color = Color( 0.803922, 0.160784, 0.0117647, 1 )
+custom_fonts/font = SubResource( 15 )
+text = "500"
+
 [node name="Music" type="Node" parent="."]
 
 [node name="win" type="AudioStreamPlayer" parent="Music"]
@@ -295,5 +345,8 @@ stream = ExtResource( 12 )
 [node name="loose" type="AudioStreamPlayer" parent="Music"]
 stream = ExtResource( 11 )
 
-[node name="level song" type="AudioStreamPlayer" parent="Music"]
+[node name="start level" type="AudioStreamPlayer" parent="Music"]
 stream = ExtResource( 13 )
+
+[node name="score" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource( 14 )

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/fly_player.mp3-a0dd44d9291bb98ecd216876e3d43f98.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/fly_player.mp3"
+dest_files=[ "res://.import/fly_player.mp3-a0dd44d9291bb98ecd216876e3d43f98.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

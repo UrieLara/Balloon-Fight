@@ -1,9 +1,11 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://assets/img/Enemies - birds.png" type="Texture" id=1]
 [ext_resource path="res://scripts/Enemy.gd" type="Script" id=2]
 [ext_resource path="res://assets/sounds/exploded.mp3" type="AudioStream" id=3]
 [ext_resource path="res://assets/sounds/fly_enemy.mp3" type="AudioStream" id=4]
+[ext_resource path="res://assets/sounds/die_enemy.mp3" type="AudioStream" id=5]
+[ext_resource path="res://assets/music/parachute.mp3" type="AudioStream" id=6]
 
 [sub_resource type="RectangleShape2D" id=22]
 extents = Vector2( 31, 33.2321 )
@@ -12,7 +14,7 @@ extents = Vector2( 31, 33.2321 )
 extents = Vector2( 33.5, 33.5 )
 
 [sub_resource type="RectangleShape2D" id=23]
-extents = Vector2( 35.5, 20 )
+extents = Vector2( 26.5, 59 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
@@ -144,7 +146,7 @@ collision_layer = 16
 collision_mask = 2
 
 [node name="balloons" type="CollisionShape2D" parent="Hurtbox" groups=["collider_parachute"]]
-position = Vector2( 5.5, -48 )
+position = Vector2( 4.5, -9 )
 shape = SubResource( 23 )
 
 [node name="Animations" type="AnimatedSprite" parent="."]
@@ -174,6 +176,12 @@ stream = ExtResource( 3 )
 
 [node name="fly" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 4 )
+
+[node name="die" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 5 )
+
+[node name="parachute" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 6 )
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]

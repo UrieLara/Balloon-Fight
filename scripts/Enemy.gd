@@ -1,5 +1,10 @@
 extends "res://scripts/character.gd"
 
+onready var sound_exploded = $Sounds/exploded
+onready var sound_fly = $Sounds/fly
+onready var sound_die = $Sounds/die
+onready var sound_parachute = $Sounds/parachute
+
 enum state {blowing, idle, parachute, flying, dead}
 var balloons = 1
 var x = 0
@@ -14,7 +19,7 @@ var hud
 var actual_state = state.blowing
 var vec_velocity = Vector2.ZERO 
 
-var player = null # Referencia al nodo Player
+var node_player = null
 
 
 func _ready():
@@ -22,12 +27,12 @@ func _ready():
 	animations.play("Blow-pink")
 	x  = global_position.x
 	y = global_position.y
-	player = get_tree().get_root().find_node("Player", true, false)
+	node_player = get_tree().get_root().find_node("Player", true, false)
 	
 	hud = get_tree().get_root().find_node("HUD", true, false)
 
-	if player:
-		player.connect("player_died", self, "_on_Player_died")
+	if node_player:
+		node_player.connect("player_died", self, "_on_Player_died")
 
 func _on_Player_died():
 	x = global_position.x
@@ -67,7 +72,7 @@ func _on_TimerY_timeout():
 	
 	if fly:
 		vec_velocity.y =  flight_impulse
-		$Sounds/fly.play()
+		play_sound(sound_fly)
 	
 	if global_position.y <= min_y:
 		flight_impulse = 0
@@ -93,10 +98,11 @@ func _on_Hitbox_area_entered(area): #bird-body
 		queue_free()
 		game_over()
 	
-func _on_Hurtbox_area_entered(area): #balloons or parachute
+func _on_Hurtbox_area_entered(_area): #balloons or parachute
 	match actual_state:
 		state.flying:
 			hud.add_score(500)	
+			play_sound(sound_exploded)
 			open_parachute()
 			
 		state.parachute:
@@ -104,31 +110,40 @@ func _on_Hurtbox_area_entered(area): #balloons or parachute
 			die()
 			
 func open_parachute():
-	$Sounds/exploded.play()
 	actual_state = state.parachute
 	animations.play("Parachute-pink")
-	$Timers/TimerX.stop()
-	$Timers/TimerY.stop()
-	self.set_collision_mask_bit(Constants.MASK_FOREGROUND - 1, false)
-	$Hitbox.set_deferred("disabled", true)
-
+	stop_timers()
+	stop_collision()
+	play_sound(sound_parachute)
+	
 func die():
 	actual_state = state.dead
+	stop_timers()
+	stop_collision()
+	animations.play("Die")
+	get_parent().get_parent().call_deferred("on_enemy_defeated", self)
+	play_sound(sound_die)
+
+func stop_collision():
+	self.set_collision_mask_bit(Constants.MASK_FOREGROUND-1, false)
+	self.set_collision_mask_bit(1, false)
+	$Hitbox.set_deferred("disabled", true)
+		
+func stop_timers():
 	$Timers/StartFly.stop()
 	$Timers/TimerX.stop()
 	$Timers/TimerY.stop()
-	animations.play("Die")
-	get_parent().get_parent().call_deferred("on_enemy_defeated", self)
-	self.set_collision_mask_bit(Constants.MASK_FOREGROUND - 1, false)
-	$Hitbox.set_deferred("disabled", true)
-		
+	
 func game_over():
 	global_position = Vector2(x, y)
 	$Timers/TimerX.stop()
 	$Timers/TimerY.stop()
 	animations.stop()
 	set_physics_process(false)
-	
-	
+		
+func play_sound(new_sound):
+	if sound_parachute.playing:
+		sound_parachute.stop()
+	new_sound.play()
 	
 			

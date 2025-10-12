@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/parachute.mp3-5eeccc7f8a073059d0e5fb487ec07139.mp3str"
+
+[deps]
+
+source_file="res://assets/music/parachute.mp3"
+dest_files=[ "res://.import/parachute.mp3-5eeccc7f8a073059d0e5fb487ec07139.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
