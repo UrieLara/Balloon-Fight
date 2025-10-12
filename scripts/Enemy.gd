@@ -15,6 +15,7 @@ export var propulsion = 1.0
 export var speed = 1.0
 export var min_y = 80
 var hud
+var playing = true
 
 var actual_state = state.blowing
 var vec_velocity = Vector2.ZERO 
@@ -91,7 +92,7 @@ func _on_TimeX_timeout():
 
 func _on_Hitbox_area_entered(area): #bird-body
 	if actual_state == state.blowing:
-		hud.add_score(750)	
+		hud.update_score(750, global_position)	
 		die()
 		
 	if area.name == "Death Area":
@@ -99,15 +100,16 @@ func _on_Hitbox_area_entered(area): #bird-body
 		game_over()
 	
 func _on_Hurtbox_area_entered(_area): #balloons or parachute
-	match actual_state:
-		state.flying:
-			hud.add_score(500)	
-			play_sound(sound_exploded)
-			open_parachute()
-			
-		state.parachute:
-			hud.add_score(1000)
-			die()
+	if playing:
+		match actual_state:
+			state.flying:
+				hud.update_score(500, global_position)	
+				play_sound(sound_exploded)
+				open_parachute()
+				
+			state.parachute:
+				hud.update_score(1000, global_position)
+				die()
 			
 func open_parachute():
 	actual_state = state.parachute
@@ -119,31 +121,43 @@ func open_parachute():
 func die():
 	actual_state = state.dead
 	stop_timers()
-	stop_collision()
+	stop_interactivity()
 	animations.play("Die")
 	get_parent().get_parent().call_deferred("on_enemy_defeated", self)
 	play_sound(sound_die)
 
-func stop_collision():
-	self.set_collision_mask_bit(Constants.MASK_FOREGROUND-1, false)
-	self.set_collision_mask_bit(1, false)
-	$Hitbox.set_deferred("disabled", true)
-		
+func game_over():
+	playing = false
+	stop_interactivity()
+	global_position = Vector2(x, y)
+	animations.stop()
+	set_physics_process(false)
+	stop_sounds()
+	stop_timers()
+			
 func stop_timers():
 	$Timers/StartFly.stop()
 	$Timers/TimerX.stop()
 	$Timers/TimerY.stop()
 	
-func game_over():
-	global_position = Vector2(x, y)
-	$Timers/TimerX.stop()
-	$Timers/TimerY.stop()
-	animations.stop()
-	set_physics_process(false)
+func stop_collision():
+	self.set_collision_mask_bit(Constants.MASK_FOREGROUND-1, false)
+	self.set_collision_mask_bit(1, false)
+	$Hitbox.set_deferred("disabled", true)
+	
+func stop_interactivity():
+	stop_collision()
+	$".".set_deferred("disabled", true)
 		
 func play_sound(new_sound):
 	if sound_parachute.playing:
 		sound_parachute.stop()
 	new_sound.play()
+
+func stop_sounds():
+	var childrens = $Sounds.get_children()
+	for child in childrens:
+		if child is AudioStreamPlayer:
+			child.stop()
 	
 			

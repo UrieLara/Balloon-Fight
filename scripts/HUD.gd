@@ -1,22 +1,29 @@
 extends CanvasLayer
-onready var scorelabel = $ScoreLabel
+
 onready var sound_score = $"../Music/score"
 
+onready var scorelabel = $ScoreLabel
+onready var enemylabel = $ScoreEnemy
+
+var score_scene = preload("res://Scores.tscn") 
+var score_instance
 var score = 0
-var label: Label
 
 func _ready():
-	label = get_node("ScoreLabel") 
+	init_score()
+
+func init_score():
+	scorelabel.text = " %06d" % 0
 	
-	if label == null:
-		print("¡ERROR! no se encontró el label.")
-		return 	
-	update_score(0)
-	
-func add_score(amount):
-	score += amount
-	update_score(score)
+func update_score(value, enemy_position):
+	score += value
 	sound_score.play()
+	scorelabel.text = " %06d" % score
 	
-func update_score(value):
-	scorelabel.text = " %06d" % value
+	score_instance = score_scene.instance()
+	add_child(score_instance)
+	score_instance.setup(value, enemy_position)
+#	enemylabel.text = str(value)
+#	enemylabel.visible = true
+#	enemylabel.rect_global_position = Vector2(enemy_position.x-15, enemy_position.y-30)
+#

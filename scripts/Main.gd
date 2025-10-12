@@ -6,9 +6,6 @@ var enemies = []
 func _ready():
 	enemies = get_tree().get_nodes_in_group("Enemies")
 	$"Music/start level".play()
-
-func on_enemy_parachute(enemy):
-	pass
 		
 func on_enemy_defeated(enemy):
 	enemies.erase(enemy)

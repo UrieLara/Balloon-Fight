@@ -11,7 +11,7 @@ var x = 0
 var y = 0
 
 
-enum player {idle, moving, flying}
+enum player {idle, moving, flying,  dead}
 enum states {idle, left, right, fly}
 
 var actual_player_state = player.idle
@@ -26,7 +26,11 @@ func _physics_process(delta):
 	vec_velocity.y += apply_gravity(delta)	
 #	if !(is_on_floor()):
 #		vec_velocity.x = direction_x*100
+	if actual_player_state == player.dead:
+			vec_velocity.x = 0
 	vec_velocity = move_and_slide(vec_velocity, Vector2.UP) 
+	
+	
 	
 func event_key():
 	if Input.is_action_just_pressed("fly"):
@@ -120,6 +124,7 @@ func _on_playerballoons_area_entered(area):
 			
 		if balloons <= 0:
 			die()
+			game_over()
 
 func _on_Hitbox_area_entered(area):
 	var enemy_node = area.get_parent().name
@@ -127,22 +132,38 @@ func _on_Hitbox_area_entered(area):
 	if not enemy_node in enemies_beaten:
 		enemies_beaten.append(enemy_node)
 	
-	if area.name == "Death Area":
-		game_over()
+	if actual_player_state!= player.dead:
+		if area.name == "Death Area":
+			game_over()
 		
 func _on_TimerImmunity_timeout():
 	immunity = false
 
 func die():
-	game_over()
-	emit_signal("player_died")
+	actual_player_state = player.dead
 	animations.play("Die")
 	vec_velocity.y = Constants.FLY_IMPULSE
+	game_over()
 	
 func game_over():
+	emit_signal("player_died")
 	stop()
+	stop_interactivity()
+	stop_sounds()
+	get_parent().get_parent().call_deferred("game_over")
+	
+
+func stop_interactivity():
 	can_move = false
-	self.set_collision_mask_bit(Constants.MASK_FOREGROUND, false)
+	self.set_collision_layer(0)
+	self.set_collision_mask(0)
+	#self.set_collision_mask_bit(Constants.MASK_FOREGROUND, false)
 	$"player-collision".set_deferred("disabled", true)
 	$Hitbox.set_deferred("disabled", true)
-	get_parent().get_parent().call_deferred("game_over")
+	$Hurtbox.set_deferred("disabled", true)
+	
+func stop_sounds():
+	var childrens = $Sounds.get_children()
+	for child in childrens:
+		if child is AudioStreamPlayer:
+			child.stop()
