@@ -7,15 +7,16 @@ var direction_x = 0
 var x = 0
 var y = 0
 
-var enemies_beaten = []
+
 enum player {idle, moving, flying}
 enum states {idle, left, right, fly}
 
 var actual_player_state = player.idle
 var immunity = true
 
+var enemies_beaten = []
 var var_game_over = false
-
+		
 func _physics_process(delta):
 	move_player()
 	teletransport()
@@ -108,6 +109,7 @@ func _on_playerballoons_area_entered(area):
 				animations.play("Popped-air")
 
 			balloons -= 1
+			$Music/exploded.play()
 			
 			$TimerImmunity.wait_time = 2.0
 			$TimerImmunity.start()
@@ -118,26 +120,25 @@ func _on_playerballoons_area_entered(area):
 func _on_Hitbox_area_entered(area):
 	var enemy_node = area.get_parent().name
 	
-	if enemy_node in enemies_beaten:
-		print("esta en la lista:"+str(enemy_node))
+	if not enemy_node in enemies_beaten:
+		enemies_beaten.append(enemy_node)
 	
 	if area.name == "Death Area":
-		print("inframundo player")
-	else:
-		enemies_beaten.append(enemy_node)
+		game_over()
+		
+func _on_TimerImmunity_timeout():
+	immunity = false
 
-		
-		
 func die():
-	stop()
-	var_game_over = true
+	game_over()
 	emit_signal("player_died")
 	animations.play("Die")
 	vec_velocity.y = Constants.FLY_IMPULSE
-	self.set_collision_mask_bit(Constants.MASK_FOREGROUND - 1, false)
+	
+func game_over():
+	stop()
+	var_game_over = true
+	self.set_collision_mask_bit(Constants.MASK_FOREGROUND, false)
 	$"player-collision".set_deferred("disabled", true)
 	$Hitbox.set_deferred("disabled", true)
-		
-func _on_TimerImmunity_timeout():
-	print("timeout: immunity")
-	immunity = false
+	get_parent().get_parent().call_deferred("game_over")

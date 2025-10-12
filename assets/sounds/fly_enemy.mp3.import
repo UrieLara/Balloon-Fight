@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/fly_enemy.mp3-2c6c644dda86b1298a65b551920525cb.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/fly_enemy.mp3"
+dest_files=[ "res://.import/fly_enemy.mp3-2c6c644dda86b1298a65b551920525cb.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

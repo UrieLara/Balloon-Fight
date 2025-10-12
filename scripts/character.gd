@@ -16,8 +16,3 @@ func teletransport():
 	elif global_position.x > Constants.MAX_WINDOW_X + Constants.SIZE_X:
 		global_position.x = 0
 
-	
-	#	for i in get_slide_count():
-#		var collision = get_slide_collision(i)
-#		if collision:
-#			print("Golpeaste:"+str(collision.collider.name))

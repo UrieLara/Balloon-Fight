@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://assets/img/fondo-ds.png" type="Texture" id=1]
 [ext_resource path="res://assets/img/terrain_edit.png" type="Texture" id=2]
@@ -9,6 +9,10 @@
 [ext_resource path="res://assets/img/score1000.png" type="Texture" id=7]
 [ext_resource path="res://assets/img/score750.png" type="Texture" id=8]
 [ext_resource path="res://assets/img/score500.png" type="Texture" id=9]
+[ext_resource path="res://Main.gd" type="Script" id=10]
+[ext_resource path="res://assets/sounds/loose.mp3" type="AudioStream" id=11]
+[ext_resource path="res://assets/sounds/win.mp3" type="AudioStream" id=12]
+[ext_resource path="res://assets/music/level.mp3" type="AudioStream" id=13]
 
 [sub_resource type="TileSet" id=1]
 0/name = "fondo-ds.png 0"
@@ -157,7 +161,7 @@ points = PoolVector2Array( 60, 20, 0, 20, 2, 2, 58, 2 )
 extents = Vector2( 138.5, 5.5 )
 
 [sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 517.75, 25 )
+extents = Vector2( 517.75, 24 )
 
 [sub_resource type="DynamicFontData" id=8]
 font_path = "res://assets/fonts/balloon-fight-nes-text.otf"
@@ -165,7 +169,14 @@ font_path = "res://assets/fonts/balloon-fight-nes-text.otf"
 [sub_resource type="DynamicFont" id=9]
 font_data = SubResource( 8 )
 
+[sub_resource type="DynamicFontData" id=10]
+font_path = "res://assets/fonts/balloon-fight-nes-text.otf"
+
+[sub_resource type="DynamicFont" id=11]
+font_data = SubResource( 10 )
+
 [node name="Node2D" type="Node2D"]
+script = ExtResource( 10 )
 
 [node name="Environment" type="Node" parent="."]
 
@@ -225,19 +236,31 @@ collision_layer = 32
 collision_mask = 10
 
 [node name="death-area-shape" type="CollisionShape2D" parent="Death Area"]
-position = Vector2( 522.25, 614 )
+position = Vector2( 522.25, 615 )
 shape = SubResource( 7 )
 
 [node name="HUD" type="CanvasLayer" parent="."]
 script = ExtResource( 5 )
 
 [node name="ScoreLabel" type="Label" parent="HUD"]
-margin_left = 64.0
+margin_left = 80.0
 margin_top = 3.0
-margin_right = 145.0
+margin_right = 176.0
 margin_bottom = 45.0
 custom_fonts/font = SubResource( 9 )
 text = "123456"
+align = 1
+valign = 1
+
+[node name="GameOverLabel" type="Label" parent="HUD"]
+visible = false
+margin_left = 326.0
+margin_top = 207.0
+margin_right = 530.0
+margin_bottom = 288.0
+rect_scale = Vector2( 2, 2 )
+custom_fonts/font = SubResource( 11 )
+text = "Game Over"
 align = 1
 valign = 1
 
@@ -263,3 +286,14 @@ visible = false
 position = Vector2( 80, -12 )
 scale = Vector2( 3.25, 6.797 )
 texture = ExtResource( 7 )
+
+[node name="Music" type="Node" parent="."]
+
+[node name="win" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource( 12 )
+
+[node name="loose" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource( 11 )
+
+[node name="level song" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource( 13 )

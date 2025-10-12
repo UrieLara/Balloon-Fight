@@ -1,13 +1,14 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://assets/img/Characters Red- Balloon Fighters.png" type="Texture" id=1]
 [ext_resource path="res://scripts/Player.gd" type="Script" id=2]
+[ext_resource path="res://assets/sounds/exploded.mp3" type="AudioStream" id=3]
 
 [sub_resource type="RectangleShape2D" id=33]
 extents = Vector2( 17.5, 21 )
 
 [sub_resource type="RectangleShape2D" id=35]
-extents = Vector2( 16.5, 21.5 )
+extents = Vector2( 17, 18.5 )
 
 [sub_resource type="RectangleShape2D" id=34]
 extents = Vector2( 24.5, 13.5 )
@@ -230,7 +231,7 @@ collision_layer = 2
 collision_mask = 40
 
 [node name="body-shape" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2( 4.5, 12.5 )
+position = Vector2( 4, 15.5 )
 shape = SubResource( 35 )
 
 [node name="Hurtbox" type="Area2D" parent="."]
@@ -242,7 +243,7 @@ position = Vector2( 7.5, -32.5 )
 shape = SubResource( 34 )
 
 [node name="Animations" type="AnimatedSprite" parent="."]
-position = Vector2( 10.5726, -7.26505 )
+position = Vector2( 14, -7 )
 scale = Vector2( 3.54772, 3.35297 )
 frames = SubResource( 32 )
 animation = "Brake-1b"
@@ -252,6 +253,11 @@ speed_scale = 3.0
 wait_time = 4.0
 one_shot = true
 autostart = true
+
+[node name="Music" type="Node" parent="."]
+
+[node name="exploded" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource( 3 )
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_playerballoons_area_entered"]

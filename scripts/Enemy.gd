@@ -15,7 +15,6 @@ var actual_state = state.blowing
 var vec_velocity = Vector2.ZERO 
 
 var player = null # Referencia al nodo Player
-var score = null
 
 
 func _ready():
@@ -26,9 +25,7 @@ func _ready():
 	player = get_tree().get_root().find_node("Player", true, false)
 	
 	hud = get_tree().get_root().find_node("HUD", true, false)
-	
 
-	
 	if player:
 		player.connect("player_died", self, "_on_Player_died")
 
@@ -55,12 +52,12 @@ func fly ():
 			
 func _on_StartFly_timeout():
 	actual_state = state.flying
-	$TimerX.start()
-	$TimerY.start()
+	$Timers/TimerX.start()
+	$Timers/TimerY.start()
 	animations.play("Fly-pink")
 	
 func _on_TimerY_timeout():
-	var prob = 5 #20% probabilidad
+	var prob = 6 #16% probabilidad
 	var flight_impulse = Constants.FLY_IMPULSE * propulsion
 	
 	if global_position.y > Constants.MIN_FLY_ALTITUDE or is_on_floor():
@@ -70,6 +67,7 @@ func _on_TimerY_timeout():
 	
 	if fly:
 		vec_velocity.y =  flight_impulse
+		$Sounds/fly.play()
 	
 	if global_position.y <= min_y:
 		flight_impulse = 0
@@ -93,6 +91,7 @@ func _on_Hitbox_area_entered(area): #bird-body
 		
 	if area.name == "Death Area":
 		queue_free()
+		game_over()
 	
 func _on_Hurtbox_area_entered(area): #balloons or parachute
 	match actual_state:
@@ -105,28 +104,31 @@ func _on_Hurtbox_area_entered(area): #balloons or parachute
 			die()
 			
 func open_parachute():
+	$Sounds/exploded.play()
 	actual_state = state.parachute
 	animations.play("Parachute-pink")
-	$TimerX.stop()
-	$TimerY.stop()
+	$Timers/TimerX.stop()
+	$Timers/TimerY.stop()
 	self.set_collision_mask_bit(Constants.MASK_FOREGROUND - 1, false)
 	$Hitbox.set_deferred("disabled", true)
 
 func die():
 	actual_state = state.dead
-	$StartFly.stop()
-	$TimerX.stop()
-	$TimerY.stop()
+	$Timers/StartFly.stop()
+	$Timers/TimerX.stop()
+	$Timers/TimerY.stop()
 	animations.play("Die")
+	get_parent().get_parent().call_deferred("on_enemy_defeated", self)
 	self.set_collision_mask_bit(Constants.MASK_FOREGROUND - 1, false)
-	$Hitbox.set_deferred("disabled", true)	
+	$Hitbox.set_deferred("disabled", true)
 		
 func game_over():
 	global_position = Vector2(x, y)
-	$TimerX.stop()
-	$TimerY.stop()
+	$Timers/TimerX.stop()
+	$Timers/TimerY.stop()
 	animations.stop()
 	set_physics_process(false)
+	
 	
 	
 			
