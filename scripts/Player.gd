@@ -10,7 +10,6 @@ var direction_x = 0
 var x = 0
 var y = 0
 
-
 enum player {idle, moving, flying,  dead}
 enum states {idle, left, right, fly}
 
@@ -24,13 +23,10 @@ func _physics_process(delta):
 	move_player()
 	teletransport()
 	vec_velocity.y += apply_gravity(delta)	
-#	if !(is_on_floor()):
-#		vec_velocity.x = direction_x*100
+	
 	if actual_player_state == player.dead:
 			vec_velocity.x = 0
 	vec_velocity = move_and_slide(vec_velocity, Vector2.UP) 
-	
-	
 	
 func event_key():
 	if Input.is_action_just_pressed("fly"):
@@ -157,7 +153,6 @@ func stop_interactivity():
 	can_move = false
 	self.set_collision_layer(0)
 	self.set_collision_mask(0)
-	#self.set_collision_mask_bit(Constants.MASK_FOREGROUND, false)
 	$"player-collision".set_deferred("disabled", true)
 	$Hitbox.set_deferred("disabled", true)
 	$Hurtbox.set_deferred("disabled", true)
