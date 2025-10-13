@@ -6,7 +6,7 @@ func _ready():
 	$"Music/start level".play()
 			
 func win():
-	label.text = "Win"
+	label.text = "You Win"
 	label.show()
 	$Music/win.play()
 	
