@@ -1,6 +1,6 @@
 # 🎈 Réplica de Balloon Fight (Godot 3.6.1)
 
-Este proyecto es una recreación de un nivel del clásico Balloon Fight (NES, 1984), desarrollada como parte de una materia universitaria.
+Este proyecto es una recreación de un nivel del clásico Balloon Fight (NES, 1986), desarrollada como parte de una materia universitaria.
 
 Su propósito principal fue explorar la lógica y mecánicas de un juego retro, aplicando conceptos de programación en Godot Engine.
 
