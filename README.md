@@ -4,6 +4,8 @@ Este proyecto es una recreación de un nivel del clásico Balloon Fight (NES, 19
 
 Su propósito principal fue explorar la lógica y mecánicas de un juego retro, aplicando conceptos de programación en Godot Engine.
 
+Pruébalo: https://urielara.itch.io/balloon-fight-recreation
+
 <p align="center"> <img src="./demo_balloon-fight.gif" alt="Captura del juego" width="600"/> </p>
 
 ## 🛠 Tecnologías usadas
